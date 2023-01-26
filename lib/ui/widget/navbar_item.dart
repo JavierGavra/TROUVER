@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:trouver/common/app_color.dart';
 
 class NavbarItem extends StatefulWidget {
   const NavbarItem(
@@ -45,7 +46,7 @@ class _NavbarItemState extends State<NavbarItem> {
           child: Icon(
             isSelected ? widget.iconSelcted : widget.icon,
             size: 24,
-            color: Colors.white,
+            color: ColorApp.accent1,
           ),
         ),
       ),

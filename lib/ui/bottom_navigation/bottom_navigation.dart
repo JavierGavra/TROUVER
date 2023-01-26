@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trouver/common/app_color.dart';
-import 'package:trouver/ui/bottom_navigation/pages/home.dart';
+import 'package:trouver/ui/bottom_navigation/pages/home/home.dart';
 import 'package:trouver/ui/bottom_navigation/pages/kotak_masuk.dart';
 import 'package:trouver/ui/bottom_navigation/pages/profil.dart';
 import 'package:trouver/ui/widget/navbar_item.dart';
@@ -75,7 +75,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
                 width: 80.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: ColorApp.accent,
+                  color: ColorApp.accent2,
                 ),
               ),
             ),
