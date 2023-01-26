@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trouver/common/app_color.dart';
+import 'package:trouver/ui/widget/shimmer_widget.dart';
 
 class MovieHomeCard extends StatelessWidget {
-  const MovieHomeCard({super.key});
+  const MovieHomeCard({
+    super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.release,
+    required this.rating,
+  });
+  final String imageUrl, title, release;
+  final double rating;
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +21,13 @@ class MovieHomeCard extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(16),
-          child: Image.asset(
-            "assets/images/kalam_profil.png",
+          child: FadeInImage.assetNetwork(
             width: 95.w,
             height: 120.h,
             fit: BoxFit.cover,
+            placeholderFit: BoxFit.cover,
+            placeholder: "assets/images/loading.gif",
+            image: "https://image.tmdb.org/t/p/w500$imageUrl",
           ),
         ),
         SizedBox(width: 22.w),
@@ -27,16 +38,16 @@ class MovieHomeCard extends StatelessWidget {
             children: [
               Text("Title :", style: textTheme.bodyText1),
               Text(
-                "Avangers End Game",
+                title,
                 overflow: TextOverflow.ellipsis,
                 style: textTheme.bodyText2,
               ),
               SizedBox(height: 6.h),
               Text("Release :", style: textTheme.bodyText1),
-              Text("2019-08-03", style: textTheme.bodyText2),
+              Text(release, style: textTheme.bodyText2),
               SizedBox(height: 6.h),
               Text("Average Rating :", style: textTheme.bodyText1),
-              Text("9.5", style: textTheme.bodyText2),
+              Text("$rating", style: textTheme.bodyText2),
             ],
           ),
         ),

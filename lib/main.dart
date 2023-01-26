@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:trouver/common/app_color.dart';
 import 'package:trouver/common/app_theme_data.dart';
 import 'package:trouver/ui/bottom_navigation/bottom_navigation.dart';
 
