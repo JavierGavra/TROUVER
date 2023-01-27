@@ -33,6 +33,7 @@ class _TabTopRatedState extends State<TabTopRated> {
             itemBuilder: (context, index) {
               final item = _movieTopRatedModel!.results![index];
               return MovieHomeCard(
+                id: item.id!.toInt(),
                 imageUrl: item.posterPath.toString(),
                 title: item.title.toString(),
                 release: item.releaseDate.toString(),

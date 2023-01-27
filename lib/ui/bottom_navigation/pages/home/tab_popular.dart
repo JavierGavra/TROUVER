@@ -34,6 +34,7 @@ class _TabPopularState extends State<TabPopular> {
             itemBuilder: (context, index) {
               final item = _moviePopularModel!.results![index];
               return MovieHomeCard(
+                id: item.id!.toInt(),
                 imageUrl: item.posterPath.toString(),
                 title: item.title.toString(),
                 release: item.releaseDate.toString(),
