@@ -10,6 +10,7 @@ class AppThemeData {
       brightness: Brightness.light,
       scaffoldBackgroundColor: ColorApp.primary,
       iconTheme: IconThemeData(color: ColorApp.primary),
+      fontFamily: "Poppins",
       textTheme: TextTheme(
         bodyText1: TextStyle(
           color: Colors.white,
