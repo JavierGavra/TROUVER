@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trouver/common/app_color.dart';
-import 'package:trouver/ui/detail/tab_about_movie.dart';
-import 'package:trouver/ui/detail/tab_reviews.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({Key? key}) : super(key: key);
@@ -21,54 +19,26 @@ class _DetailPageState extends State<DetailPage>
     'Horor',
     'Musik'
   ];
-  TabController? _tabController;
-  ScrollController? _scrollController;
-  bool fixedScroll = false;
-
-  _scrollListener() {
-    if (fixedScroll) {
-      _scrollController!.jumpTo(0);
-    }
-  }
-
-  _smoothScrollToTop() {
-    _scrollController!.animateTo(
-      0,
-      duration: Duration(microseconds: 300),
-      curve: Curves.ease,
-    );
-
-    setState(() {
-      fixedScroll = _tabController!.index == 2;
-    });
-  }
 
   @override
   void initState() {
-    _scrollController = ScrollController();
-    _scrollController!.addListener(_scrollListener);
-    _tabController = TabController(length: 2, vsync: this);
-    _tabController!.addListener(_smoothScrollToTop);
     super.initState();
   }
 
   @override
   void dispose() {
-    _tabController!.dispose();
-    _scrollController!.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: NestedScrollView(
-        controller: _scrollController,
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              automaticallyImplyLeading: false,
-              // toolbarHeight: 314.h,
+              // automaticallyImplyLeading: false,
               expandedHeight: 314.h,
               backgroundColor: ColorApp.primary,
               // title: Text("jdasjdk"),
@@ -173,38 +143,105 @@ class _DetailPageState extends State<DetailPage>
                 ),
               ),
             ),
-            SliverToBoxAdapter(
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                height: 33,
-                // width: 200,
-                child: TabBar(
-                  labelPadding: EdgeInsets.symmetric(horizontal: 7),
-                  controller: _tabController,
-                  isScrollable: true,
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Color(0xffA8A8A8),
-                  indicatorColor: Color(0xffFA6218),
-                  indicatorSize: TabBarIndicatorSize.label,
-                  tabs: [
-                    Tab(
-                      text: 'About Movie',
-                    ),
-                    Tab(
-                      text: 'Reviews',
-                    ),
-                  ],
-                ),
-              ),
-            )
           ];
         },
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            TabAbout(),
-            TabReviews(),
-          ],
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+          child: Column(
+            children: [
+              Text(
+                "From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.",
+                style: textTheme.bodyText2,
+              ),
+              SizedBox(height: 12.h),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 159.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Release Date :", style: textTheme.bodyText1),
+                        Text("2019-08-03", style: textTheme.bodyText2),
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                    width: 159.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Runtime :", style: textTheme.bodyText1),
+                        Text("120 Minutes", style: textTheme.bodyText2),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 30.h),
+              Row(
+                children: [
+                  InkWell(
+                    onTap: () {},
+                    borderRadius: BorderRadius.circular(35),
+                    splashColor: ColorApp.secondary,
+                    child: Ink(
+                      height: 44.h,
+                      padding: EdgeInsets.symmetric(horizontal: 35.w),
+                      decoration: BoxDecoration(
+                          color: ColorApp.accent2,
+                          borderRadius: BorderRadius.circular(35)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.play_arrow_rounded,
+                            size: 22.w,
+                            color: ColorApp.accent1,
+                          ),
+                          SizedBox(width: 4.w),
+                          Text(
+                            "Trailer",
+                            style: TextStyle(
+                                color: ColorApp.accent1,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12.sp),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  _likeDislikeButton(
+                      Icons.thumb_up_off_alt_outlined, Icons.thumb_up_alt),
+                  SizedBox(width: 15.w),
+                  _likeDislikeButton(
+                      Icons.thumb_down_off_alt_outlined, Icons.thumb_down_alt),
+                  SizedBox(width: 15.w),
+                  InkWell(
+                    onTap: () {},
+                    borderRadius: BorderRadius.circular(35),
+                    splashColor: ColorApp.accent2,
+                    child: Ink(
+                      // padding: EdgeInsets.all(10.r),
+                      height: 44.h,
+                      width: 44.w,
+                      decoration: BoxDecoration(
+                        color: ColorApp.secondary,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.bookmark_outline,
+                        size: 18.r,
+                        color: ColorApp.accent1,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -218,6 +255,28 @@ class _DetailPageState extends State<DetailPage>
       decoration: BoxDecoration(
           color: ColorApp.secondary, borderRadius: BorderRadius.circular(16)),
       child: Text(text, style: TextStyle(fontSize: 12.sp)),
+    );
+  }
+
+  Widget _likeDislikeButton(IconData unClick, IconData click) {
+    return InkWell(
+      onTap: () {},
+      borderRadius: BorderRadius.circular(35),
+      splashColor: ColorApp.accent2,
+      child: Ink(
+        // padding: EdgeInsets.all(10.r),
+        height: 44.h,
+        width: 44.w,
+        decoration: BoxDecoration(
+          color: ColorApp.secondary,
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          unClick,
+          size: 18.r,
+          color: ColorApp.accent1,
+        ),
+      ),
     );
   }
 }
