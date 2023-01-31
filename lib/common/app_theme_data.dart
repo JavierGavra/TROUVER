@@ -30,6 +30,26 @@ class AppThemeData {
       fontFamily: "Poppins",
       // appBarTheme: AppBarTheme(backgroundColor: ColorApp.primary, elevation: 0),
       textTheme: TextTheme(
+        headline2: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w600,
+          fontSize: 16.sp,
+        ),
+        headline3: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w500,
+          fontSize: 16.sp,
+        ),
+        headline4: TextStyle(
+          color: Colors.white,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w500,
+        ),
+        headline5: TextStyle(
+          color: Colors.white,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w400,
+        ),
         bodyText1: TextStyle(
           color: Colors.white,
           fontSize: 12.sp,
