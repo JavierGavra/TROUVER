@@ -29,7 +29,7 @@ class MovieHomeCard extends StatelessWidget {
       ),
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (_) => DetailPage()));
+            context, MaterialPageRoute(builder: (_) => DetailPage(id: id)));
       },
       child: Row(
         children: [

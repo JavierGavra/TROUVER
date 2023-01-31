@@ -5,7 +5,7 @@ import 'package:trouver/ui/bottom_navigation/pages/home/tab_now_playing.dart';
 import 'package:trouver/ui/bottom_navigation/pages/home/tab_popular.dart';
 import 'package:trouver/ui/bottom_navigation/pages/home/tab_top_rated.dart';
 import 'package:trouver/ui/bottom_navigation/pages/home/tab_upcoming.dart';
-import 'package:trouver/ui/widget/home/home_Slider.dart';
+import 'package:trouver/ui/widget/home/home_slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
