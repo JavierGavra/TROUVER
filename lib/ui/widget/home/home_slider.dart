@@ -112,8 +112,8 @@ class _HomeSliderState extends State<HomeSlider> {
   Widget _sliderCard(var item) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => DetailPage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => DetailPage(id: item.id)));
       },
       child: SizedBox(
         height: 155.h,
