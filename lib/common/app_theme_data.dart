@@ -28,6 +28,14 @@ class AppThemeData {
       scaffoldBackgroundColor: ColorApp.primary,
       iconTheme: IconThemeData(color: ColorApp.primary),
       fontFamily: "Poppins",
+      inputDecorationTheme: InputDecorationTheme(
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: ColorApp.accent1),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: ColorApp.accent1),
+        ),
+      ),
       // appBarTheme: AppBarTheme(backgroundColor: ColorApp.primary, elevation: 0),
       textTheme: TextTheme(
         headline2: TextStyle(

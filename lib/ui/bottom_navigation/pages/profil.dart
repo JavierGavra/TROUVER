@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trouver/common/app_color.dart';
@@ -8,6 +10,7 @@ class ProfilPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     final screenSize = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
     return SingleChildScrollView(
@@ -37,7 +40,7 @@ class ProfilPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
-                    "User@gmail.com",
+                    user.email!,
                     style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500,
@@ -53,7 +56,8 @@ class ProfilPage extends StatelessWidget {
                 SizedBox(height: 18.h),
                 button(context, Icons.info, "About", () {}),
                 SizedBox(height: 18.h),
-                button(context, Icons.logout, "Log Out", () {}),
+                button(context, Icons.logout, "Log Out",
+                    () => FirebaseAuth.instance.signOut()),
               ],
             ),
           ),
