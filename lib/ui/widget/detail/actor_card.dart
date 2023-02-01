@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,15 +33,11 @@ class ActorCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: CachedNetworkImage(
+                child: Image.network(
+                  image,
                   height: 135.h,
                   width: 120.w,
                   fit: BoxFit.cover,
-                  placeholder: (context, url) => FittedBox(
-                    fit: BoxFit.none,
-                    child: CircularProgressIndicator(color: ColorApp.accent1),
-                  ),
-                  imageUrl: image,
                 ),
               ),
               SizedBox(height: 6.h),

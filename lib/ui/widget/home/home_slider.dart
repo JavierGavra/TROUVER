@@ -157,7 +157,7 @@ class _HomeSliderState extends State<HomeSlider> {
                         TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    item.releaseDate,
+                    item.id!.toString(),
                     style:
                         TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w400),
                   ),

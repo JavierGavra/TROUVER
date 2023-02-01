@@ -6,11 +6,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trouver/common/app_color.dart';
 import 'package:trouver/model/movie_cast_model.dart';
 import 'package:trouver/model/movie_detail_model.dart';
+import 'package:trouver/model/movie_recomendation_model.dart';
+import 'package:trouver/model/movie_similiar_model.dart';
+import 'package:trouver/model/movie_video_model.dart';
 import 'package:trouver/service/api_service.dart';
 import 'package:trouver/ui/widget/detail/actor_card.dart';
 import 'package:trouver/ui/widget/detail/more_information.dart';
 import 'package:trouver/ui/widget/detail/movie_detail_card.dart';
 import 'package:trouver/ui/widget/detail/review_button.dart';
+import 'package:trouver/ui/widget/detail/trailer_button.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({Key? key, required this.id}) : super(key: key);
@@ -24,17 +28,12 @@ class _DetailPageState extends State<DetailPage>
     with SingleTickerProviderStateMixin {
   MovieDetailModel? _movieDetailModel;
   MovieCastModel? _movieCastModel;
+  MovieSimiliarModel? _movieSimiliarModel;
+  MovieRecomendationModel? _movieRecomendationModel;
+  MovieVideoModel? _movieVideoModel;
   ScrollController? _scrollController;
   final double _height = 300;
   bool _lastStatus = true;
-  List _list = [
-    'Action',
-    'Advanture',
-    'Animation',
-    'Thriler',
-    'Horor',
-    'Musik'
-  ];
 
   bool get _isShrink {
     return _scrollController != null &&
@@ -52,8 +51,13 @@ class _DetailPageState extends State<DetailPage>
 
   Future _getData() async {
     _movieDetailModel = await ApiService().getMovieDetail(widget.id.toString());
+    _movieSimiliarModel =
+        await ApiService().getMovieSimiliar(widget.id.toString());
     _movieCastModel =
         await ApiService().getMovieCast(context, widget.id.toString());
+    _movieRecomendationModel =
+        await ApiService().getMovieRecomendation(widget.id.toString());
+    _movieVideoModel = await ApiService().getMovieVideo(widget.id.toString());
     return _movieDetailModel;
   }
 
@@ -250,37 +254,9 @@ class _DetailPageState extends State<DetailPage>
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
                           child: Row(
                             children: [
-                              InkWell(
-                                onTap: () {},
-                                borderRadius: BorderRadius.circular(35),
-                                splashColor: ColorApp.secondary,
-                                child: Ink(
-                                  height: 44.h,
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 35.w),
-                                  decoration: BoxDecoration(
-                                      color: ColorApp.accent2,
-                                      borderRadius: BorderRadius.circular(35)),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.play_arrow_rounded,
-                                        size: 22.w,
-                                        color: ColorApp.accent1,
-                                      ),
-                                      SizedBox(width: 4.w),
-                                      Text(
-                                        "Trailer",
-                                        style: TextStyle(
-                                            color: ColorApp.accent1,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 12.sp),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              TrailerButton(
+                                  link:
+                                      "https://www.youtube.com/watch?v=${_movieVideoModel!.results![_movieVideoModel!.results!.length - 1].key}"),
                               const Spacer(),
                               _likeDislikeButton(
                                   Icons.thumb_up_off_alt_outlined,
@@ -331,12 +307,21 @@ class _DetailPageState extends State<DetailPage>
                                 SizedBox(width: 15.h),
                             itemBuilder: (context, index) {
                               final item = _movieCastModel!.cast![index];
-                              return ActorCard(
-                                name: item.name!,
-                                character: item.character!,
-                                image:
-                                    "https://themoviedb.org/t/p/w500${item.profilePath}",
-                              );
+                              if (item.profilePath == null) {
+                                return ActorCard(
+                                  name: item.name!,
+                                  character: item.character!,
+                                  image:
+                                      "https://media.istockphoto.com/id/518552551/photo/male-silhouette-profile-picture-with-question-mark.jpg?s=612x612&w=0&k=20&c=vCJR4RK29efe_TCPtPdhArezQvp1lcyOMAJ80I8hNOA=",
+                                );
+                              } else {
+                                return ActorCard(
+                                  name: item.name!,
+                                  character: item.character!,
+                                  image:
+                                      "https://themoviedb.org/t/p/w500${item.profilePath}",
+                                );
+                              }
                             },
                           ),
                         ),
@@ -371,7 +356,7 @@ class _DetailPageState extends State<DetailPage>
                         // Similiar Movie
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          child: Text("If You Like {name}",
+                          child: Text("Maybe You Like This Movie To",
                               style: textTheme.headline4),
                         ),
                         SizedBox(height: 12.h),
@@ -379,16 +364,18 @@ class _DetailPageState extends State<DetailPage>
                           height: 211.h,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
-                            itemCount: _list.length,
+                            itemCount: _movieSimiliarModel!.results!.length,
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
                             separatorBuilder: (context, index) =>
                                 SizedBox(width: 15.h),
                             itemBuilder: (context, index) {
+                              final item = _movieSimiliarModel!.results![index];
                               return MovieDetailCard(
-                                name: "Muhammad Vitto Chorleone",
-                                character: "Thanos, Thor, Jokowi, Soeharto",
+                                id: item.id!,
+                                title: item.title!,
+                                view: item.popularity!.toString(),
                                 image:
-                                    "https://themoviedb.org/t/p/w500/kt25dfq7Cc6vEjG8AH46YbhZoPC.jpg",
+                                    "https://themoviedb.org/t/p/w500${item.posterPath}",
                               );
                             },
                           ),
@@ -406,16 +393,20 @@ class _DetailPageState extends State<DetailPage>
                           height: 211.h,
                           child: ListView.separated(
                             scrollDirection: Axis.horizontal,
-                            itemCount: _list.length,
+                            itemCount:
+                                _movieRecomendationModel!.results!.length,
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
                             separatorBuilder: (context, index) =>
                                 SizedBox(width: 15.h),
                             itemBuilder: (context, index) {
+                              final item =
+                                  _movieRecomendationModel!.results![index];
                               return MovieDetailCard(
-                                name: "Muhammad Vitto Chorleone",
-                                character: "Thanos, Thor, Jokowi, Soeharto",
+                                id: item.id!,
+                                title: item.title!,
+                                view: item.popularity!.toString(),
                                 image:
-                                    "https://themoviedb.org/t/p/w500/kt25dfq7Cc6vEjG8AH46YbhZoPC.jpg",
+                                    "https://themoviedb.org/t/p/w500${item.posterPath}",
                               );
                             },
                           ),

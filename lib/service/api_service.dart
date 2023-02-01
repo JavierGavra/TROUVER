@@ -6,8 +6,11 @@ import 'package:trouver/model/movie_cast_model.dart';
 import 'package:trouver/model/movie_detail_model.dart';
 import 'package:trouver/model/movie_now_playing_model.dart';
 import 'package:trouver/model/movie_popular_model.dart';
+import 'package:trouver/model/movie_recomendation_model.dart';
+import 'package:trouver/model/movie_similiar_model.dart';
 import 'package:trouver/model/movie_top_rated_model.dart';
 import 'package:trouver/model/movie_upcoming_model.dart';
+import 'package:trouver/model/movie_video_model.dart';
 import 'package:trouver/ui/widget/snackbar.dart';
 
 class ApiService {
@@ -145,6 +148,73 @@ class ApiService {
       }
     } on HttpException {
       showSnackBar(context, title: "HttpException");
+    }
+  }
+
+  Future getMovieSimiliar(String id) async {
+    final endPoint = "/movie/$id/similar";
+    const language = "en-US";
+    const page = "1";
+    final url =
+        "$baseUrl$endPoint?api_key=$apiKey&language=$language&page=$page";
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      print('status code : ${response.statusCode}');
+      if (response.statusCode == 200) {
+        MovieSimiliarModel model =
+            MovieSimiliarModel.fromJson(json.decode(response.body));
+        return model;
+      } else {
+        throw Exception("Failed to fetch data from API");
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future getMovieRecomendation(String id) async {
+    final endPoint = "/movie/$id/recommendations";
+    const language = "en-US";
+    const page = "1";
+    final url =
+        "$baseUrl$endPoint?api_key=$apiKey&language=$language&page=$page";
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      print('status code : ${response.statusCode}');
+      if (response.statusCode == 200) {
+        MovieRecomendationModel model =
+            MovieRecomendationModel.fromJson(json.decode(response.body));
+        return model;
+      } else {
+        throw Exception("Failed to fetch data from API");
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future getMovieVideo(String id) async {
+    final endPoint = "/movie/$id/videos";
+    const language = "en-US";
+    final url = "$baseUrl$endPoint?api_key=$apiKey&language=$language";
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      print('status code : ${response.statusCode}');
+      if (response.statusCode == 200) {
+        MovieVideoModel model =
+            MovieVideoModel.fromJson(json.decode(response.body));
+        return model;
+      } else {
+        throw Exception("Failed to fetch data from API");
+      }
+    } catch (e) {
+      print(e.toString());
     }
   }
 }
