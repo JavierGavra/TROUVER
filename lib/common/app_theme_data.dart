@@ -31,7 +31,7 @@ class AppThemeData {
       // appBarTheme: AppBarTheme(backgroundColor: ColorApp.primary, elevation: 0),
       textTheme: TextTheme(
         headline2: TextStyle(
-          color: Colors.white,
+          color: ColorApp.primary,
           fontWeight: FontWeight.w600,
           fontSize: 16.sp,
         ),
