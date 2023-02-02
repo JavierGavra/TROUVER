@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -33,6 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
+      addDetailUser(usernameController.text.trim(), emailController.text.trim());
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -42,6 +44,16 @@ class _RegisterPageState extends State<RegisterPage> {
       );
     }
     Navigator.of(context, rootNavigator: true).pop();
+  }
+
+  Future addDetailUser(String name, String email) async {
+    DocumentReference documentReference = FirebaseFirestore.instance.
+    collection('users').doc(FirebaseAuth.instance.currentUser!.uid);
+
+    documentReference.set({
+      'name' : name,
+      'email' : email
+    });
   }
 
   @override

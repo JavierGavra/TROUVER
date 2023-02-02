@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class ProfilPage extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Text("UserName Kamu", style: textTheme.headline2),
+                GetName(documentID: FirebaseAuth.instance.currentUser!.uid),
                 SizedBox(height: 13.h),
                 Container(
                   padding:
@@ -126,3 +127,30 @@ class ProfilPage extends StatelessWidget {
     );
   }
 }
+
+class GetName extends StatelessWidget {
+  const GetName({Key? key, required this.documentID}) : super(key: key);
+  final String documentID;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    return FutureBuilder<DocumentSnapshot>(
+      future: users.doc(documentID).get(),
+      builder: ((context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data =
+          snapshot.data!.data() as Map<String, dynamic>;
+          if (data["email"] == FirebaseAuth.instance.currentUser!.email) {
+            return Text(data['name'], style: textTheme.headline2);
+          }
+        }
+        return Text('user', style: textTheme.headline2);
+      }),
+    );
+  }
+}
+
+
+

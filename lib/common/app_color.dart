@@ -1,4 +1,5 @@
-import 'package:flutter/animation.dart';
+
+import 'dart:ui';
 
 class ColorApp {
   static Color primary = const Color(0xff242A32);
