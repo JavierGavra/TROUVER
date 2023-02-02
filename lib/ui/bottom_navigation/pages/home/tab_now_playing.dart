@@ -48,7 +48,7 @@ class _TabNowPlayingState extends State<TabNowPlaying> {
                   underline: Container(height: 1, color: ColorApp.accent2),
                   onChanged: (value) {
                     setState(() {
-                      drdValue = value!;
+                      drdValue = value!.toString();
                     });
                   },
                 ),
