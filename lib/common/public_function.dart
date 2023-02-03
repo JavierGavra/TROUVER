@@ -1,7 +1,7 @@
 import 'package:url_launcher/url_launcher.dart';
 
 class PublicFunction {
-  Future<void> launchLink(String link) async {
+  static Future<void> launchLink(String link) async {
     Uri url = Uri.parse(link);
     final bool nativeAppLaunchSucceeded = await launchUrl(
       url,

@@ -1,11 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trouver/common/app_color.dart';
 import 'package:trouver/ui/detail/detail_page.dart';
 
 class MovieDetailCard extends StatelessWidget {
-  const MovieDetailCard({
+  MovieDetailCard({
     super.key,
     required this.id,
     required this.title,
@@ -13,10 +12,17 @@ class MovieDetailCard extends StatelessWidget {
     required this.image,
   });
   final int id;
-  final String title, view, image;
+  String? image;
+  final String title, view;
 
   @override
   Widget build(BuildContext context) {
+    if (image == null) {
+      image =
+          "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png";
+    } else {
+      image = "https://themoviedb.org/t/p/w500${image!}";
+    }
     final textTheme = Theme.of(context).textTheme;
     return InkWell(
       onTap: () {
@@ -40,15 +46,12 @@ class MovieDetailCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: CachedNetworkImage(
+                  child: FadeInImage.assetNetwork(
+                    image: image!,
                     height: 135.h,
                     width: 120.w,
                     fit: BoxFit.cover,
-                    placeholder: (context, url) => FittedBox(
-                      fit: BoxFit.none,
-                      child: CircularProgressIndicator(color: ColorApp.accent1),
-                    ),
-                    imageUrl: image,
+                    placeholder: 'assets/images/loading.gif',
                   ),
                 ),
                 SizedBox(height: 6.h),

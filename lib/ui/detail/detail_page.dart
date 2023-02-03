@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trouver/common/app_color.dart';
@@ -111,11 +108,12 @@ class _DetailPageState extends State<DetailPage>
                           child: Stack(
                             alignment: AlignmentDirectional.topCenter,
                             children: [
-                              CachedNetworkImage(
+                              FadeInImage.assetNetwork(
                                 width: MediaQuery.of(context).size.width,
                                 height: 221.h,
                                 fit: BoxFit.cover,
-                                imageUrl:
+                                placeholder: 'assets/images/loading.gif',
+                                image:
                                     "https://image.tmdb.org/t/p/w500${_movieDetailModel!.backdropPath}",
                               ),
                               Container(
@@ -140,11 +138,13 @@ class _DetailPageState extends State<DetailPage>
                                     children: [
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(16),
-                                        child: CachedNetworkImage(
+                                        child: FadeInImage.assetNetwork(
                                           width: 95.2,
                                           height: 120.h,
                                           fit: BoxFit.cover,
-                                          imageUrl:
+                                          placeholder:
+                                              'assets/images/loading.gif',
+                                          image:
                                               "https://image.tmdb.org/t/p/w500${_movieDetailModel!.posterPath}",
                                         ),
                                       ),
@@ -374,8 +374,7 @@ class _DetailPageState extends State<DetailPage>
                                 id: item.id!,
                                 title: item.title!,
                                 view: item.popularity!.toString(),
-                                image:
-                                    "https://themoviedb.org/t/p/w500${item.posterPath}",
+                                image: item.posterPath,
                               );
                             },
                           ),
@@ -405,8 +404,7 @@ class _DetailPageState extends State<DetailPage>
                                 id: item.id!,
                                 title: item.title!,
                                 view: item.popularity!.toString(),
-                                image:
-                                    "https://themoviedb.org/t/p/w500${item.posterPath}",
+                                image: item.posterPath,
                               );
                             },
                           ),
