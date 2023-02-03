@@ -11,7 +11,7 @@ class TrailerButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        PublicFunction().launchLink(link);
+        PublicFunction.launchLink(link);
       },
       borderRadius: BorderRadius.circular(35),
       splashColor: ColorApp.secondary,

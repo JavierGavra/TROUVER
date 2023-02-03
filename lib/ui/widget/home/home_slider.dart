@@ -1,8 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:trouver/common/app_color.dart';
 import 'package:trouver/model/movie_popular_model.dart';
 import 'package:trouver/service/api_service.dart';
 import 'package:trouver/ui/detail/detail_page.dart';

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:trouver/common/app_color.dart';
@@ -35,15 +34,13 @@ class MovieHomeCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: CachedNetworkImage(
+            child: FadeInImage.assetNetwork(
+              image: "https://image.tmdb.org/t/p/w500$imageUrl",
               width: 95.w,
               height: 130.h,
               fit: BoxFit.cover,
               // placeholderFit: BoxFit.cover,
-              placeholder: (context, url) => FittedBox(
-                  fit: BoxFit.none,
-                  child: CircularProgressIndicator(color: ColorApp.accent1)),
-              imageUrl: "https://image.tmdb.org/t/p/w500$imageUrl",
+              placeholder: 'assets/images/loading.gif',
             ),
           ),
           SizedBox(width: 22.w),
