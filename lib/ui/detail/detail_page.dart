@@ -291,41 +291,50 @@ class _DetailPageState extends State<DetailPage>
                         SizedBox(height: 30.h),
 
                         // Cast
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          child: Text("Cast (only 10)",
-                              style: textTheme.headline4),
-                        ),
-                        SizedBox(height: 12.h),
-                        SizedBox(
-                          height: 226.h,
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 10,
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            separatorBuilder: (context, index) =>
-                                SizedBox(width: 15.h),
-                            itemBuilder: (context, index) {
-                              final item = _movieCastModel!.cast![index];
-                              if (item.profilePath == null) {
-                                return ActorCard(
-                                  name: item.name!,
-                                  character: item.character!,
-                                  image:
-                                      "https://media.istockphoto.com/id/518552551/photo/male-silhouette-profile-picture-with-question-mark.jpg?s=612x612&w=0&k=20&c=vCJR4RK29efe_TCPtPdhArezQvp1lcyOMAJ80I8hNOA=",
-                                );
-                              } else {
-                                return ActorCard(
-                                  name: item.name!,
-                                  character: item.character!,
-                                  image:
-                                      "https://themoviedb.org/t/p/w500${item.profilePath}",
-                                );
-                              }
-                            },
-                          ),
-                        ),
-                        SizedBox(height: 30.h),
+                        _movieCastModel!.cast!.length < 10
+                            ? const SizedBox()
+                            : Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                child: Text("Cast (only 10)",
+                                    style: textTheme.headline4),
+                              ),
+                        _movieCastModel!.cast!.length < 10
+                            ? const SizedBox()
+                            : SizedBox(height: 12.h),
+                        _movieCastModel!.cast!.length < 10
+                            ? const SizedBox()
+                            : SizedBox(
+                                height: 226.h,
+                                child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 10,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  separatorBuilder: (context, index) =>
+                                      SizedBox(width: 15.h),
+                                  itemBuilder: (context, index) {
+                                    final item = _movieCastModel!.cast![index];
+                                    if (item.profilePath == null) {
+                                      return ActorCard(
+                                        name: item.name!,
+                                        character: item.character!,
+                                        image:
+                                            "https://media.istockphoto.com/id/518552551/photo/male-silhouette-profile-picture-with-question-mark.jpg?s=612x612&w=0&k=20&c=vCJR4RK29efe_TCPtPdhArezQvp1lcyOMAJ80I8hNOA=",
+                                      );
+                                    } else {
+                                      return ActorCard(
+                                        name: item.name!,
+                                        character: item.character!,
+                                        image:
+                                            "https://themoviedb.org/t/p/w500${item.profilePath}",
+                                      );
+                                    }
+                                  },
+                                ),
+                              ),
+                        _movieCastModel!.cast!.length < 10
+                            ? const SizedBox()
+                            : SizedBox(height: 30.h),
 
                         // additional information
                         Padding(
