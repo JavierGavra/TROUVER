@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trouver/common/app_color.dart';
 import 'package:trouver/ui/bottom_navigation/pages/home/home.dart';
-import 'package:trouver/ui/bottom_navigation/pages/kotak_masuk.dart';
-import 'package:trouver/ui/bottom_navigation/pages/profil.dart';
+import 'package:trouver/ui/bottom_navigation/pages/kotak_masuk/kotak_masuk.dart';
+import 'package:trouver/ui/bottom_navigation/pages/profil/profil.dart';
 import 'package:trouver/ui/widget/navbar_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

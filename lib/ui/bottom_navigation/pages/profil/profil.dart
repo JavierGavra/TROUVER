@@ -141,16 +141,20 @@ class GetName extends StatelessWidget {
       builder: ((context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
-          snapshot.data!.data() as Map<String, dynamic>;
+              snapshot.data!.data() as Map<String, dynamic>;
           if (data["email"] == FirebaseAuth.instance.currentUser!.email) {
             return Text(data['name'], style: textTheme.headline2);
           }
         }
-        return Text('user', style: textTheme.headline2);
+        return Text(
+          'Loading...',
+          style: TextStyle(
+            color: Color.fromARGB(255, 111, 111, 111),
+            fontWeight: FontWeight.w600,
+            fontSize: 16.sp,
+          ),
+        );
       }),
     );
   }
 }
-
-
-
