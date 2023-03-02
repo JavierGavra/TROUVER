@@ -5,6 +5,7 @@ import 'package:trouver/model/movie_now_playing_model.dart';
 import 'package:trouver/model/movie_top_rated_model.dart';
 import 'package:trouver/service/api_service.dart';
 import 'package:trouver/ui/widget/home/movie_home_card.dart';
+import 'package:trouver/ui/widget/home/movie_home_card_landscape.dart';
 import 'package:trouver/ui/widget/home/movie_home_shimmer.dart';
 
 class TabNowPlaying extends StatefulWidget {
@@ -53,7 +54,7 @@ class _TabNowPlayingState extends State<TabNowPlaying> {
                   },
                 ),
                 SizedBox(height: 20.h),
-                ListView.separated(
+                MediaQuery.of(context).orientation == Orientation.portrait? ListView.separated(
                   itemCount: _movieNowPlayingModel!.results!.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -66,6 +67,27 @@ class _TabNowPlayingState extends State<TabNowPlaying> {
                       title: item.title.toString(),
                       release: item.releaseDate.toString(),
                       rating: 9.5,
+                    );
+                  },
+                ):GridView.builder(
+                  itemCount: _movieNowPlayingModel!.results!.length,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.symmetric(
+                      vertical: 30.spMin, horizontal: 20.w),
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 24,
+                      crossAxisSpacing: 27,
+                      childAspectRatio: (145 / 147)),
+                  itemBuilder: (context, index) {
+                    final item = _movieNowPlayingModel!.results![index];
+                    return MovieHomeCardLandscape(
+                      id: item.id!.toInt(),
+                      gambar: item.posterPath.toString(),
+                      judul: item.title.toString(),
+                      penonton: item.releaseDate.toString(),
+                      rating: item.voteAverage!.toString(),
                     );
                   },
                 ),
