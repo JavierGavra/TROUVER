@@ -17,10 +17,7 @@ class AuthPage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasData) {
-            return OrientationBuilder(
-              builder: (context, orientation) => orientation == Orientation.portrait ?
-              CustomBottomNavigation() : CustomNavigationRail(),
-            );
+            return const CustomBottomNavigation();
           } else {
             return const LoginOrRegister();
           }
