@@ -5,6 +5,7 @@ import 'package:trouver/common/app_theme_data.dart';
 import 'package:trouver/firebase_options.dart';
 import 'package:trouver/ui/auth/auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:trouver/ui/splash_screen/splash_screen.dart';
 
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 //   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           themeMode: ThemeMode.dark,
           darkTheme: AppThemeData.getThemeDark(context),
-          home: AuthPage(),
+          home: SplashScreen(),
         );
       },
     );
