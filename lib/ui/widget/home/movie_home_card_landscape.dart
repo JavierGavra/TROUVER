@@ -32,8 +32,8 @@ class MovieHomeCardLandscape extends StatelessWidget {
                 height: double.infinity,
                 child: FittedBox(
                   child: FadeInImage.assetNetwork(
-                      placeholder: "images/loading1.gif",
-                      image: "https://themoviedb.org/t/p/w500" + gambar),
+                      placeholder: "assets/images/loading.gif",
+                      image: "https://image.tmdb.org/t/p/w500" + gambar),
                   fit: BoxFit.cover,
                   clipBehavior: Clip.hardEdge,
                 ),

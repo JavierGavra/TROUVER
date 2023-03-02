@@ -61,12 +61,10 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
     setState(() {
       _pagesInit = _pagesInit;
     });
-    return OrientationBuilder(
-      builder: (context, orientation) {
-        isPotrait = orientation == Orientation.portrait ? true : false;
-        return Scaffold(
-          body: _pages[_pagesInit],
-          bottomNavigationBar: isPotrait
+    return Scaffold(
+        body: _pages[_pagesInit],
+        bottomNavigationBar: OrientationBuilder(
+          builder: (context, orientation) => orientation == Orientation.portrait
               ? BottomAppBar(
                   // elevation: 0,
                   color: ColorApp.secondary,
@@ -126,9 +124,39 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
                     ],
                   ),
                 )
-              : null,
-        );
-      },
-    );
+              : Row(
+                  children: [
+                    NavigationRail(
+                      selectedIndex: _pagesInit.toInt(),
+                      onDestinationSelected: (index) {
+                        setState(() {
+                          _pagesInit = index;
+                        });
+                      },
+                      selectedIconTheme: IconThemeData(color: Colors.white),
+                      backgroundColor: Colors.black12,
+                      destinations: const [
+                        NavigationRailDestination(
+                            icon: Icon(
+                              Icons.home,
+                            ),
+                            label: Text('Home')),
+                        NavigationRailDestination(
+                            icon: Icon(Icons.tv), label: Text('Tv')),
+                        NavigationRailDestination(
+                            icon: Icon(Icons.notifications),
+                            label: Text('Notifikasi')),
+                        NavigationRailDestination(
+                            icon: Icon(Icons.account_circle),
+                            label: Text('Account'))
+                      ],
+                    ),
+                    Expanded(
+                        child: Container(
+                      child: _pages[_pagesInit],
+                    ))
+                  ],
+                ),
+        ));
   }
 }

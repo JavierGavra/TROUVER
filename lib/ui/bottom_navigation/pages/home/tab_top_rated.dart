@@ -14,7 +14,6 @@ class TabTopRated extends StatefulWidget {
 }
 
 class _TabTopRatedState extends State<TabTopRated> {
-  bool? isPotrait;
   MovieTopRatedModel? _movieTopRatedModel;
 
   Future _getData() async =>
@@ -22,69 +21,63 @@ class _TabTopRatedState extends State<TabTopRated> {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(
-      builder: (context, orientation) {
-        isPotrait = orientation == Orientation.portrait ? true : false;
-        return FutureBuilder(
-          future: _getData(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return isPotrait!
-                  ? ListView.separated(
-                      itemCount: _movieTopRatedModel!.results!.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 30.h, horizontal: 20.w),
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: 18.h),
-                      itemBuilder: (context, index) {
-                        final item = _movieTopRatedModel!.results![index];
-                        return MovieHomeCard(
-                          id: item.id!.toInt(),
-                          imageUrl: item.posterPath.toString(),
-                          title: item.title.toString(),
-                          release: item.releaseDate.toString(),
-                          rating: item.voteAverage!.toDouble(),
-                        );
-                      },
-                    )
-                  : GridView.builder(
-                      itemCount: _movieTopRatedModel!.results!.length,
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 24,
-                              crossAxisSpacing: 27,
-                              childAspectRatio: (145 / 147)),
-                      itemBuilder: (context, index) {
-                        final item = _movieTopRatedModel!.results![index];
-                        return MovieHomeCardLandscape(
-                          id: item.id!.toInt(),
-                          gambar: item.posterPath.toString(),
-                          judul: item.title.toString(),
-                          penonton: item.releaseDate.toString(),
-                          rating: item.voteAverage!.toString(),
-                        );
-                      },
+    return FutureBuilder(
+      future: _getData(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return MediaQuery.of(context).orientation == Orientation.portrait
+              ? ListView.separated(
+                  itemCount: _movieTopRatedModel!.results!.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 30.h, horizontal: 20.w),
+                  separatorBuilder: (context, index) => SizedBox(height: 18.h),
+                  itemBuilder: (context, index) {
+                    final item = _movieTopRatedModel!.results![index];
+                    return MovieHomeCard(
+                      id: item.id!.toInt(),
+                      imageUrl: item.posterPath.toString(),
+                      title: item.title.toString(),
+                      release: item.releaseDate.toString(),
+                      rating: item.voteAverage!.toDouble(),
                     );
-            } else {
-              return ListView.separated(
-                itemCount: 10,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 20.w),
-                separatorBuilder: (context, index) => SizedBox(height: 18.h),
-                itemBuilder: (context, index) {
-                  return const MovieHomeShimmer();
-                },
-              );
-            }
-          },
-        );
+                  },
+                )
+              : GridView.builder(
+                  itemCount: _movieTopRatedModel!.results!.length,
+                  shrinkWrap: true,
+                  padding: EdgeInsets.symmetric(
+                      vertical: 30.spMin, horizontal: 20.w),
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 24,
+                      crossAxisSpacing: 27,
+                      childAspectRatio: (145 / 147)),
+                  itemBuilder: (context, index) {
+                    final item = _movieTopRatedModel!.results![index];
+                    return MovieHomeCardLandscape(
+                      id: item.id!.toInt(),
+                      gambar: item.posterPath.toString(),
+                      judul: item.title.toString(),
+                      penonton: item.releaseDate.toString(),
+                      rating: item.voteAverage!.toString(),
+                    );
+                  },
+                );
+        } else {
+          return ListView.separated(
+            itemCount: 10,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 20.w),
+            separatorBuilder: (context, index) => SizedBox(height: 18.h),
+            itemBuilder: (context, index) {
+              return const MovieHomeShimmer();
+            },
+          );
+        }
       },
     );
   }

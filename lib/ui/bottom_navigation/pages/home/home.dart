@@ -115,3 +115,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+Scaffold IsLanscape() {
+  return Scaffold(
+    body: Center(
+      child: Text('landscape'),
+    ),
+  );
+}
