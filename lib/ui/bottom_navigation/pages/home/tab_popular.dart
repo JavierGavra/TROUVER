@@ -4,6 +4,7 @@ import 'package:trouver/model/movie_popular_model.dart';
 import 'package:trouver/model/movie_top_rated_model.dart';
 import 'package:trouver/service/api_service.dart';
 import 'package:trouver/ui/widget/home/movie_home_card.dart';
+import 'package:trouver/ui/widget/home/movie_home_card_landscape.dart';
 import 'package:trouver/ui/widget/home/movie_home_shimmer.dart';
 
 class TabPopular extends StatefulWidget {
@@ -25,7 +26,7 @@ class _TabPopularState extends State<TabPopular> {
       future: _getData(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return ListView.separated(
+          return MediaQuery.of(context).orientation == Orientation.portrait? ListView.separated(
             itemCount: _moviePopularModel!.results!.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -39,6 +40,27 @@ class _TabPopularState extends State<TabPopular> {
                 title: item.title.toString(),
                 release: item.releaseDate.toString(),
                 rating: item.voteAverage!.toDouble(),
+              );
+            },
+          ):GridView.builder(
+            itemCount: _moviePopularModel!.results!.length,
+            shrinkWrap: true,
+            padding: EdgeInsets.symmetric(
+                vertical: 30.spMin, horizontal: 20.w),
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                mainAxisSpacing: 24,
+                crossAxisSpacing: 27,
+                childAspectRatio: (145 / 147)),
+            itemBuilder: (context, index) {
+              final item = _moviePopularModel!.results![index];
+              return MovieHomeCardLandscape(
+                id: item.id!.toInt(),
+                gambar: item.posterPath.toString(),
+                judul: item.title.toString(),
+                penonton: item.releaseDate.toString(),
+                rating: item.voteAverage!.toString(),
               );
             },
           );

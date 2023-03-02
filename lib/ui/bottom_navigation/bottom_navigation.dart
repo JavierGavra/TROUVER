@@ -133,8 +133,11 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
                           _pagesInit = index;
                         });
                       },
-                      selectedIconTheme: IconThemeData(color: Colors.white),
+                      selectedIconTheme: IconThemeData(color: ColorApp.accent2),
                       backgroundColor: Colors.black12,
+                      unselectedIconTheme: IconThemeData(
+                        color: Colors.white
+                      ),
                       destinations: const [
                         NavigationRailDestination(
                             icon: Icon(
