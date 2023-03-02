@@ -60,7 +60,8 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
     });
     return Scaffold(
       body: _pages[_pagesInit],
-      bottomNavigationBar: BottomAppBar(
+      bottomNavigationBar:
+      BottomAppBar(
         // elevation: 0,
         color: ColorApp.secondary,
         child: Stack(
@@ -117,7 +118,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
             ),
           ],
         ),
-      ),
+      )
     );
   }
 }

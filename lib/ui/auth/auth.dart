@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trouver/ui/auth/login_or_register.dart';
 import 'package:trouver/ui/bottom_navigation/bottom_navigation.dart';
+import 'package:trouver/ui/bottom_navigation/navigation_rail.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -16,7 +17,10 @@ class AuthPage extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasData) {
-            return const CustomBottomNavigation();
+            return OrientationBuilder(
+              builder: (context, orientation) => orientation == Orientation.portrait ?
+              CustomBottomNavigation() : CustomNavigationRail(),
+            );
           } else {
             return const LoginOrRegister();
           }
