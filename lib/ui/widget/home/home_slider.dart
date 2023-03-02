@@ -43,7 +43,7 @@ class _HomeSliderState extends State<HomeSlider> {
                 itemCount: 4,
                 carouselController: _controller,
                 options: CarouselOptions(
-                  height: 155.h,
+                  height: 155.spMin,
                   autoPlay: true,
                   enlargeCenterPage: true,
                   enableInfiniteScroll: false,
@@ -55,7 +55,7 @@ class _HomeSliderState extends State<HomeSlider> {
                 ),
                 itemBuilder: (context, index, realIndex) {
                   return ShimmerWidget(
-                    height: 155.h,
+                    height: 155.spMin,
                     width: 328.w,
                     radius: 12.r,
                   );
@@ -74,7 +74,7 @@ class _HomeSliderState extends State<HomeSlider> {
                 itemCount: 4,
                 carouselController: _controller,
                 options: CarouselOptions(
-                  height: 155.h,
+                  height: 155.spMin,
                   autoPlay: true,
                   enlargeCenterPage: true,
                   enableInfiniteScroll: false,
@@ -97,9 +97,12 @@ class _HomeSliderState extends State<HomeSlider> {
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 400),
                       width: _current == entry.key ? 20.w : 7.w,
-                      height: 7.h,
+                      height: 7.spMin,
                       margin: EdgeInsets.only(
-                          top: 18.h, bottom: 17.h, left: 5.w, right: 5.w),
+                          top: 18.spMin,
+                          bottom: 17.spMin,
+                          left: 5.w,
+                          right: 5.w),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(16.r),
@@ -120,7 +123,7 @@ Widget _sliderCard(BuildContext context, var item) {
           context, MaterialPageRoute(builder: (_) => DetailPage(id: item.id)));
     },
     child: SizedBox(
-      height: 155.h,
+      height: 155.spMin,
       width: 328.w,
       child: Stack(
         children: [
@@ -135,7 +138,7 @@ Widget _sliderCard(BuildContext context, var item) {
                 width: 328.w,
               )),
           Container(
-            height: 155.h,
+            height: 155.spMin,
             padding: EdgeInsets.only(bottom: 12.w, left: 12.w),
             alignment: Alignment.bottomLeft,
             decoration: BoxDecoration(
@@ -157,13 +160,13 @@ Widget _sliderCard(BuildContext context, var item) {
                 Text(
                   item.title,
                   overflow: TextOverflow.ellipsis,
-                  style:
-                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      fontSize: 14.spMin, fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  item.id!.toString(),
-                  style:
-                      TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w400),
+                  item.releaseDate!.toString(),
+                  style: TextStyle(
+                      fontSize: 10.spMin, fontWeight: FontWeight.w400),
                 ),
               ],
             ),
